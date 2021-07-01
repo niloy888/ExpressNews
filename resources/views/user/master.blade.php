@@ -42,23 +42,18 @@
 
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{asset('/')}}admin/assets/css/starlight.css">
-
-<style>
+    <style>
     .msg-summary-big > img:hover {
   width: 300px;
   height: 200px;
 }
 </style>
-
 </head>
 
 <body>
 
-
-
-
 <!-- ########## START: LEFT PANEL ########## -->
-<div class="sl-logo"><a href="{{route('home')}}"><i class="icon ion-android-star-outline"></i> Express News</a></div>
+<div class="sl-logo"><a href="{{route('user-dashboard')}}"><i class="icon ion-android-star-outline"></i> Express News</a></div>
 <div class="sl-sideleft">
     <div class="input-group input-group-search">
         <input type="search" name="search" class="form-control" placeholder="Search">
@@ -69,97 +64,35 @@
 
     <label class="sidebar-label">Navigation</label>
     <div class="sl-sideleft-menu">
-        <a href="{{route('home')}}" class="sl-menu-link">
+        <a href="{{route('user-dashboard')}}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
                 <span class="menu-item-label">Dashboard</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
-        {{--<a href="widgets.html" class="sl-menu-link">
+      {{--  <a href="widgets.html" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
                 <span class="menu-item-label">Cards &amp; Widgets</span>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->--}}
 
-        {{--<a href="#" class="sl-menu-link">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">Categories</span>
-                <i class="menu-item-arrow fa fa-angle-down"></i>
-            </div><!-- menu-item -->
-        </a>
-        <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="{{route('add-category')}}" class="nav-link">Add Category</a></li>
-            <li class="nav-item"><a href="{{route('manage-category')}}" class="nav-link">Manage Category</a></li>
-        </ul>--}}
 
-        <a href="{{route('manage-category')}}" class="sl-menu-link">
+        <a href="{{route('user-message-admin')}}" class="sl-menu-link">
             <div class="sl-menu-item">
                 <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">Categories</span>
-            </div><!-- menu-item -->
-        </a>
-
-        <a href="{{route('manage-paper')}}" class="sl-menu-link">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">Newspapers</span>
+                <span class="menu-item-label">Message Admin</span>
+                @if($total!=0)
+                <span class="badge badge-danger">{{$total}}</span>
+                @endif
             </div><!-- menu-item -->
         </a>
 
 
-        <a href="{{route('manage-post')}}" class="sl-menu-link">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">All Posts</span>
-            </div><!-- menu-item -->
-        </a>
 
-        <a href="#" class="sl-menu-link">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">Today's News</span>
-                <i class="menu-item-arrow fa fa-angle-down"></i>
-            </div><!-- menu-item -->
-        </a>
-        <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="{{route('manage-today-news')}}" class="nav-link">All News</a></li>
-            <li class="nav-item"><a href="{{route('manage-breaking-news')}}" class="nav-link">Breaking News</a></li>
-        </ul>
+       
 
-        <a href="{{route('manage-reporters')}}" class="sl-menu-link">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">Reporters</span>
-            </div><!-- menu-item -->
-        </a>
-
-        <a href="{{route('manage-clients')}}" class="sl-menu-link">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">Clients</span>
-            </div><!-- menu-item -->
-        </a>
-
-        <a href="{{route('user-messages')}}" class="sl-menu-link">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">User Messages</span>
-            </div><!-- menu-item -->
-        </a>
-
-        {{--<a href="#" class="sl-menu-link">
-            <div class="sl-menu-item">
-                <i class="menu-item-icon icon ion-ios-photos-outline tx-20"></i>
-                <span class="menu-item-label">Posts</span>
-                <i class="menu-item-arrow fa fa-angle-down"></i>
-            </div><!-- menu-item -->
-        </a>
-        <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="{{route('add-post')}}" class="nav-link">Add Post</a></li>
-            <li class="nav-item"><a href="{{route('manage-post')}}" class="nav-link">Manage Post</a></li>
-        </ul>--}}
+        
 
 
         {{--<a href="#" class="sl-menu-link">
@@ -269,7 +202,7 @@
             <div class="dropdown">
                 <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
                     {{--<span class="logged-name">Jane<span class="hidden-md-down"> Doe</span></span>--}}
-                    <span class="logged-name">{{ Auth::user()->name }}</span>
+                    <span class="logged-name">{{ Session::get('client_name') }}</span>
                     <img src="{{asset('/')}}admin/assets/img/img3.jpg" class="wd-32 rounded-circle" alt="">
                 </a>
                 <div class="dropdown-menu dropdown-menu-header wd-200">
@@ -280,10 +213,11 @@
                         <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>
                         <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li>--}}
                         <li>
-                            <a href="#" onclick="event.preventDefault();document.getElementById('logoutForm').submit();"><i class="icon ion-power"></i> Sign Out</a>
-                            <form id="logoutForm" action="{{route('logout')}}" method="post">
+                            <a href="{{route('user-logout')}}" ><i class="icon ion-power"></i> Sign Out</a>
+                            <!-- <a href="#" onclick="event.preventDefault();document.getElementById('logoutForm').submit();"><i class="icon ion-power"></i> Sign Out</a>
+                            <form id="logoutForm" action="{{route('user-logout')}}" method="post">
                                 @csrf
-                            </form>
+                            </form> -->
                         </li>
                     </ul>
                 </div><!-- dropdown-menu -->

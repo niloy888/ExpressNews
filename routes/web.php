@@ -32,6 +32,13 @@ Route::get('/password/new/','Front\PasswordResetController@newPassword')->name('
 
 Route::post('/comment/submit/','Front\CommentController@submitComment')->name('comment-submit');
 
+Route::post('/user-message/submit/','UserMessageController@submitMessage')->name('user-message-submit');
+
+
+Route::get('/user/dashboard', 'Front\ClientController@index')->name('user-dashboard');
+Route::get('/user/message-admin', 'Front\ClientController@messageAdmin')->name('user-message-admin');
+Route::post('/user/message-admin/send', 'Front\ClientController@sendMessage')->name('user-send-message');
+
 
 //admin
 //Route::get('/','ExpressNewsController@index')->name('/');
@@ -45,6 +52,15 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/admin/category/edit/{id}','Admin\CategoryController@editCategory')->name('edit-category');
     Route::post('/admin/category/update', 'Admin\CategoryController@updateCategory')->name('update-category');
     Route::post('/admin/category/delete','Admin\CategoryController@deleteCategory')->name('delete-category');
+
+
+    Route::get('/admin/newspaper/add', 'Admin\NewsPaperController@addNewsPaper')->name('add-paper');
+    Route::post('/admin/newspaper/new', 'Admin\NewsPaperController@newNewsPaper')->name('new-paper');
+    Route::get('/admin/newspaper/manage','Admin\NewsPaperController@manageNewsPaper')->name('manage-paper');
+    Route::get('/admin/newspaper/edit/{id}','Admin\NewsPaperController@editNewsPaper')->name('edit-paper');
+    Route::post('/admin/newspaper/update', 'Admin\NewsPaperController@updateNewsPaper')->name('update-paper');
+    Route::post('/admin/newspaper/delete','Admin\NewsPaperController@deleteNewsPaper')->name('delete-paper');
+
 
     Route::get('/admin/post/add', 'Admin\PostController@addPost')->name('add-post');
     Route::post('/admin/post/new', 'Admin\PostController@newPost')->name('new-post');
@@ -67,7 +83,12 @@ Route::group(['middleware' => ['auth']], function(){
     Route::get('/admin/manage-clients', 'Admin\PostController@manageClients')->name('manage-clients');
     Route::get('/admin/change-client-status/{id}','Admin\PostController@changeClientStatus')->name('change-client-status');
 
+    Route::get('/admin/user-messages', 'UserMessageController@manageMessages')->name('user-messages');
+    Route::get('/admin/message/{id}', 'UserMessageController@messageDetails')->name('admin-message-details');
 
+    Route::post('/admin/message/send', 'UserMessageController@sendMessage')->name('admin-send-message');
+
+    Route::get('/admin/image-download/{id}', 'UserMessageController@imageDownload')->name('image-download');
 });
 
 

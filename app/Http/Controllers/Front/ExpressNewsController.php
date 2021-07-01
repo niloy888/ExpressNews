@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Model\Admin\Category;
 use App\Model\Admin\Post;
+use App\NewsPaper;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -15,6 +16,7 @@ class ExpressNewsController extends Controller
     public function index(){
 
         $categories = Category::where('publication_status',1)->get();
+        //$newspapers = NewsPaper::where('status',1)->get();
         $totalCategories = count($categories)+2;
         //return $totalCategories;
         $date = Carbon::now()->format('Y/m/d');
@@ -32,6 +34,7 @@ class ExpressNewsController extends Controller
         return view('front-end.home.home',[
             'posts'      => Post::where('publication_status', 1)->where('publication_date',$date)->orderBy('id','desc')->take($totalCategories)->get(),
             'categories' => Category::where('publication_status', 1)->orderBy('category_name','asc')->get(),
+            'newspapers' => NewsPaper::where('status', 1)->get(),
             'popularArticles' => Post::where('publication_status', 1)->where('publication_date',$date)->take(5)->orderBy('popularity','desc')->get(),
             'recentPosts' => Post::where('publication_status', 1)->where('publication_date',$date)->take(5)->orderBy('id','desc')->get(),
             'breakingArticles' => Post::where('publication_status', 1)->where('publication_date',$date)->where('is_breaking',"1")->orderBy('id','desc')->get(),
